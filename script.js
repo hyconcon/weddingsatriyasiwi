@@ -286,9 +286,13 @@ if (
 }
 
 
+const weddingVideo = document.querySelector(".wedding-video");
+if (weddingVideo) weddingVideo.muted = true;
+
+
 /* =========================================================
    COUPLE PHOTO TRANSITION
-   SIWI ATAS + SATRIYA BAWAH
+   SATRIYA ATAS + SIWI BAWAH
    2 FOTO SAJA PER MEMPELAI
    HANYA FOTONYA YANG BERGANTI
    TRANSISI FADE HALUS SETIAP 5 DETIK
@@ -1796,13 +1800,13 @@ if (calendarButton) {
 
             const title =
                 encodeURIComponent(
-                    "Pernikahan Siwi & Satriya"
+                    "Pernikahan Satriya & Siwi"
                 );
 
 
             const details =
                 encodeURIComponent(
-                    "Undangan Pernikahan Siwi & Satriya"
+                    "Undangan Pernikahan Satriya & Siwi"
                 );
 
 
@@ -1871,7 +1875,7 @@ if (shareWhatsApp) {
 
 
             let message =
-                "Kami mengundang Anda untuk hadir dalam Pernikahan Siwi & Satriya 🤍\n\n";
+                "Kami mengundang Anda untuk hadir dalam Pernikahan Satriya & Siwi 🤍\n\n";
 
 
             if (
