@@ -291,6 +291,7 @@ if (
    SIWI ATAS + SATRIYA BAWAH
    2 FOTO SAJA PER MEMPELAI
    HANYA FOTONYA YANG BERGANTI
+   TRANSISI FADE HALUS SETIAP 5 DETIK
 ========================================================= */
 
 const coupleAlbums = {
@@ -309,7 +310,8 @@ const coupleAlbums = {
                 "siwiPhoto"
             ),
 
-        dots: []
+        dots: [],
+        timer: null
 
     },
 
@@ -328,7 +330,8 @@ const coupleAlbums = {
                 "satriyaPhoto"
             ),
 
-        dots: []
+        dots: [],
+        timer: null
 
     }
 
@@ -339,6 +342,28 @@ const coupleProfiles =
     document.querySelectorAll(
         ".couple-profile"
     );
+
+
+function preloadCoupleImages(
+    album
+) {
+
+    if (!album) {
+        return;
+    }
+
+    album.images.forEach(
+        (src) => {
+
+            const image =
+                new Image();
+
+            image.src = src;
+
+        }
+    );
+
+}
 
 
 function bindCoupleDots(
@@ -374,7 +399,8 @@ function bindCoupleDots(
 
                     changeCouplePhoto(
                         albumName,
-                        index
+                        index,
+                        true
                     );
 
                 }
@@ -425,9 +451,46 @@ function updateCoupleDots(
 }
 
 
+function scheduleCoupleAlbum(
+    albumName
+) {
+
+    const album =
+        coupleAlbums[
+            albumName
+        ];
+
+    if (!album) {
+        return;
+    }
+
+    clearTimeout(
+        album.timer
+    );
+
+    album.timer =
+        setTimeout(
+            () => {
+
+                changeCouplePhoto(
+                    albumName,
+                    (
+                        album.current + 1
+                    ) %
+                    album.images.length
+                );
+
+            },
+            5000
+        );
+
+}
+
+
 function changeCouplePhoto(
     albumName,
-    index
+    index,
+    fromDot = false
 ) {
 
     const album =
@@ -452,47 +515,99 @@ function changeCouplePhoto(
         nextIndex ===
         album.current
     ) {
+
+        scheduleCoupleAlbum(
+            albumName
+        );
+
         return;
+
     }
 
 
-    album.photo.classList.add(
-        "fade-photo"
-    );
+    if (fromDot) {
+
+        clearTimeout(
+            album.timer
+        );
+
+    }
 
 
-    setTimeout(
+    const nextSource =
+        album.images[
+            nextIndex
+        ];
+
+
+    const preloadedImage =
+        new Image();
+
+
+    preloadedImage.onload =
         () => {
 
-            album.photo.src =
-                album.images[
-                    nextIndex
-                ];
-
-
-            album.current =
-                nextIndex;
-
-
-            updateCoupleDots(
-                album,
-                nextIndex
+            album.photo.classList.add(
+                "fade-photo"
             );
 
 
-            requestAnimationFrame(
+            setTimeout(
                 () => {
 
-                    album.photo.classList.remove(
-                        "fade-photo"
+                    album.photo.src =
+                        nextSource;
+
+                    album.current =
+                        nextIndex;
+
+                    updateCoupleDots(
+                        album,
+                        nextIndex
                     );
 
-                }
+
+                    requestAnimationFrame(
+                        () => {
+
+                            requestAnimationFrame(
+                                () => {
+
+                                    album.photo.classList.remove(
+                                        "fade-photo"
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+                    scheduleCoupleAlbum(
+                        albumName
+                    );
+
+                },
+                450
             );
 
-        },
-        520
-    );
+        };
+
+
+    preloadedImage.onerror =
+        () => {
+
+            // Jangan membuat foto hilang bila file tujuan tidak ditemukan.
+            scheduleCoupleAlbum(
+                albumName
+            );
+
+        };
+
+
+    preloadedImage.src =
+        nextSource;
 
 }
 
@@ -510,21 +625,12 @@ function startCoupleAlbum(
         return;
     }
 
+    preloadCoupleImages(
+        album
+    );
 
-    setInterval(
-        () => {
-
-            changeCouplePhoto(
-                albumName,
-                (
-                    album.current +
-                    1
-                ) %
-                album.images.length
-            );
-
-        },
-        5000
+    scheduleCoupleAlbum(
+        albumName
     );
 
 }
