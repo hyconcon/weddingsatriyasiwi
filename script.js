@@ -96,11 +96,9 @@ if (openInvitation) {
 
             invitationOpened = true;
 
-
             document.body.classList.remove(
                 "invitation-locked"
             );
-
 
             if (cover) {
 
@@ -109,12 +107,6 @@ if (openInvitation) {
                 );
 
             }
-
-
-            /*
-             * Musik mulai setelah
-             * tombol dibuka.
-             */
 
             if (music) {
 
@@ -142,11 +134,6 @@ if (openInvitation) {
                     });
 
             }
-
-
-            /*
-             * Scroll sedikit menuju opening.
-             */
 
             setTimeout(
                 () => {
@@ -188,7 +175,6 @@ if (musicButton) {
             if (!music) {
                 return;
             }
-
 
             if (music.paused) {
 
@@ -301,230 +287,311 @@ if (
 
 
 /* =========================================================
-   COUPLE SLIDER
-   SATU-SATU + CROSSFADE
+   COUPLE PHOTO TRANSITION
+   SIWI ATAS + SATRIYA BAWAH
+   2 FOTO SAJA PER MEMPELAI
 ========================================================= */
 
-const coupleData = [
+const coupleAlbums = {
 
-    {
-        role:
-            "MEMPELAI WANITA",
+    siwi: {
 
-        name:
-            "Margareta Septa Prima Siwi",
+        current: 0,
 
-        parents:
-            "Putri dari<br>Bapak Wasikin & Ibu Kristiyaningsih",
+        images: [
+            "images/siwi.jpg",
+            "images/siwi2.jpg"
+        ],
 
-        image:
-            "images/siwi.jpg"
+        wrapper:
+            document.getElementById(
+                "siwiPhoto1"
+            )?.closest(
+                ".couple-photo-stack"
+            ),
+
+        active:
+            document.getElementById(
+                "siwiPhoto1"
+            ),
+
+        next:
+            document.getElementById(
+                "siwiPhoto2"
+            ),
+
+        dots: []
+
     },
 
-    {
-        role:
-            "MEMPELAI LAKI-LAKI",
 
-        name:
-            "Ignatius Satriya Bagus Pradana",
+    satriya: {
 
-        parents:
-            "Putra dari<br>Bapak Arinto Subandoko Vinc & Ibu Theresia Maria Dwi Aryani",
+        current: 0,
 
-        image:
-            "images/satriya.jpg"
+        images: [
+            "images/satriya.jpg",
+            "images/satriya2.jpg"
+        ],
+
+        wrapper:
+            document.getElementById(
+                "satriyaPhoto1"
+            )?.closest(
+                ".couple-photo-stack"
+            ),
+
+        active:
+            document.getElementById(
+                "satriyaPhoto1"
+            ),
+
+        next:
+            document.getElementById(
+                "satriyaPhoto2"
+            ),
+
+        dots: []
+
     }
 
-];
+};
 
 
-let coupleIndex = 0;
-
-let coupleTimer = null;
-
-
-const couplePhoto =
-    document.getElementById(
-        "couplePhoto"
-    );
-
-const coupleRole =
-    document.getElementById(
-        "coupleRole"
-    );
-
-const coupleName =
-    document.getElementById(
-        "coupleName"
-    );
-
-const coupleParents =
-    document.getElementById(
-        "coupleParents"
-    );
-
-const coupleDots =
+const coupleProfiles =
     document.querySelectorAll(
-        ".couple-dot"
+        ".couple-profile"
     );
 
 
-function changeCouple(
+function bindCoupleDots(
+    profile,
+    albumName
+) {
+
+    const album =
+        coupleAlbums[
+            albumName
+        ];
+
+    if (!album) {
+        return;
+    }
+
+
+    album.dots =
+        profile.querySelectorAll(
+            ".couple-photo-dot"
+        );
+
+
+    album.dots.forEach(
+        (
+            dot,
+            index
+        ) => {
+
+            dot.addEventListener(
+                "click",
+                () => {
+
+                    transitionCouplePhoto(
+                        albumName,
+                        index
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+if (coupleProfiles.length >= 2) {
+
+    bindCoupleDots(
+        coupleProfiles[0],
+        "siwi"
+    );
+
+    bindCoupleDots(
+        coupleProfiles[1],
+        "satriya"
+    );
+
+}
+
+
+function updateCoupleDots(
+    album,
     index
 ) {
 
+    album.dots.forEach(
+        (
+            dot,
+            dotIndex
+        ) => {
+
+            dot.classList.toggle(
+                "active",
+                dotIndex ===
+                index
+            );
+
+        }
+    );
+
+}
+
+
+function transitionCouplePhoto(
+    albumName,
+    index
+) {
+
+    const album =
+        coupleAlbums[
+            albumName
+        ];
+
     if (
-        !couplePhoto ||
-        !coupleRole ||
-        !coupleName ||
-        !coupleParents
+        !album ||
+        !album.wrapper ||
+        !album.active ||
+        !album.next
     ) {
         return;
     }
 
 
-    const person =
-        coupleData[index];
+    const normalizedIndex =
+        index %
+        album.images.length;
+
+
+    if (
+        normalizedIndex ===
+        album.current
+    ) {
+        return;
+    }
 
 
     /*
-     * Crossfade keluar.
+     * Pastikan foto berikutnya
+     * sudah disiapkan pada layer.
      */
 
-    couplePhoto.classList.add(
-        "fade-photo"
-    );
+    album.next.src =
+        album.images[
+            normalizedIndex
+        ];
 
 
-    setTimeout(
+    const startCrossfade =
         () => {
 
-            couplePhoto.src =
-                person.image;
-
-            couplePhoto.alt =
-                person.name;
-
-
-            coupleRole.textContent =
-                person.role;
-
-
-            coupleName.textContent =
-                person.name;
-
-
-            coupleParents.innerHTML =
-                person.parents;
-
-
-            coupleDots.forEach(
-                (
-                    dot,
-                    dotIndex
-                ) => {
-
-                    dot.classList.toggle(
-                        "active",
-                        dotIndex === index
-                    );
-
-                }
+            album.wrapper.classList.add(
+                "crossfade"
             );
 
 
-            /*
-             * Crossfade masuk.
-             */
+            album.current =
+                normalizedIndex;
 
-            requestAnimationFrame(
+
+            updateCoupleDots(
+                album,
+                normalizedIndex
+            );
+
+
+            setTimeout(
                 () => {
 
-                    couplePhoto.classList.remove(
-                        "fade-photo"
+                    const oldSrc =
+                        album.active.src;
+
+
+                    album.active.src =
+                        album.next.src;
+
+
+                    album.next.src =
+                        oldSrc;
+
+
+                    album.wrapper.classList.remove(
+                        "crossfade"
                     );
 
-                }
+                },
+                1100
+            );
+
+        };
+
+
+    if (
+        album.next.complete
+    ) {
+
+        requestAnimationFrame(
+            startCrossfade
+        );
+
+    } else {
+
+        album.next.onload =
+            startCrossfade;
+
+    }
+
+}
+
+
+function startCoupleAlbum(
+    albumName
+) {
+
+    const album =
+        coupleAlbums[
+            albumName
+        ];
+
+    if (!album) {
+        return;
+    }
+
+
+    setInterval(
+        () => {
+
+            transitionCouplePhoto(
+                albumName,
+                (
+                    album.current +
+                    1
+                ) %
+                album.images.length
             );
 
         },
-        450
-    );
-
-}
-
-
-function nextCouple() {
-
-    coupleIndex++;
-
-    if (
-        coupleIndex >=
-        coupleData.length
-    ) {
-
-        coupleIndex = 0;
-
-    }
-
-    changeCouple(
-        coupleIndex
-    );
-
-}
-
-
-/*
- * Otomatis setiap 5 detik.
- */
-
-coupleTimer =
-    setInterval(
-        nextCouple,
         5000
     );
 
-
-/*
- * Klik dot.
- */
-
-coupleDots.forEach(
-    (dot) => {
-
-        dot.addEventListener(
-            "click",
-            () => {
-
-                coupleIndex =
-                    Number(
-                        dot.dataset.couple
-                    );
-
-                changeCouple(
-                    coupleIndex
-                );
+}
 
 
-                /*
-                 * Reset timer supaya
-                 * tidak langsung berganti.
-                 */
+startCoupleAlbum(
+    "siwi"
+);
 
-                clearInterval(
-                    coupleTimer
-                );
-
-                coupleTimer =
-                    setInterval(
-                        nextCouple,
-                        5000
-                    );
-
-            }
-        );
-
-    }
+startCoupleAlbum(
+    "satriya"
 );
 
 
@@ -880,10 +947,6 @@ if (rsvpForm) {
             }
 
 
-            /*
-             * Deadline RSVP.
-             */
-
             const deadline =
                 new Date(
                     "November 1, 2026 23:59:59 GMT+0700"
@@ -945,18 +1008,26 @@ if (rsvpForm) {
 
             try {
 
-                await fetch(
-                    SCRIPT_URL,
-                    {
-                        method:
-                            "POST",
+                const response =
+                    await fetch(
+                        SCRIPT_URL,
+                        {
+                            method:
+                                "POST",
 
-                        body:
-                            JSON.stringify(
-                                data
-                            )
-                    }
-                );
+                            body:
+                                JSON.stringify(
+                                    data
+                                )
+                        }
+                    );
+
+
+                if (!response.ok) {
+                    throw new Error(
+                        "RSVP gagal dikirim."
+                    );
+                }
 
 
                 if (statusRsvp) {
@@ -966,10 +1037,6 @@ if (rsvpForm) {
 
                 }
 
-
-                /*
-                 * Isi nama wishes otomatis.
-                 */
 
                 const wishNama =
                     document.getElementById(
@@ -985,16 +1052,8 @@ if (rsvpForm) {
                 }
 
 
-                /*
-                 * Counter visual.
-                 */
-
                 incrementRsvpCounter();
 
-
-                /*
-                 * Scroll ke wishes.
-                 */
 
                 setTimeout(
                     () => {
@@ -1186,71 +1245,6 @@ function incrementRsvpCounter() {
 }
 
 
-/*
- * Animasi counter ketika section
- * pertama kali terlihat.
- */
-
-let rsvpCounterAnimated =
-    false;
-
-
-if (
-    rsvpCounter &&
-    "IntersectionObserver"
-    in window
-) {
-
-    const counterObserver =
-        new IntersectionObserver(
-            (entries) => {
-
-                entries.forEach(
-                    (entry) => {
-
-                        if (
-                            entry.isIntersecting &&
-                            !rsvpCounterAnimated
-                        ) {
-
-                            rsvpCounterAnimated =
-                                true;
-
-                            /*
-                             * Nilai awal visual.
-                             *
-                             * Tidak mengklaim sebagai
-                             * jumlah RSVP database.
-                             */
-
-                            animateNumber(
-                                rsvpCounter,
-                                0
-                            );
-
-                            counterObserver.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.5
-            }
-        );
-
-
-    counterObserver.observe(
-        rsvpCounter
-    );
-
-}
-
-
 /* =========================================================
    WEDDING WISHES
 ========================================================= */
@@ -1270,17 +1264,18 @@ const submitWish =
         "submitWish"
     );
 
+const wishCountLabel =
+    document.getElementById(
+        "wishCountLabel"
+    );
 
-/*
- * Maksimal wishes yang ditampilkan.
- */
 
-const MAX_WISHES = 20;
+const MAX_WISHES =
+    20;
 
 
 /* =========================================================
    ESCAPE HTML
-   Mencegah teks user menjadi HTML.
 ========================================================= */
 
 function escapeHTML(
@@ -1329,7 +1324,9 @@ async function loadWishes() {
 
         const response =
             await fetch(
-                SCRIPT_URL,
+                SCRIPT_URL +
+                "?t=" +
+                Date.now(),
                 {
                     method:
                         "GET",
@@ -1358,10 +1355,6 @@ async function loadWishes() {
         }
 
 
-        /*
-         * Ambil wishes saja.
-         */
-
         const wishes =
             data
                 .filter(
@@ -1378,8 +1371,50 @@ async function loadWishes() {
                 .reverse();
 
 
+        if (wishCountLabel) {
+
+            wishCountLabel.textContent =
+                `${wishes.length} ucapan`;
+
+        }
+
+
         wishList.innerHTML =
             "";
+
+
+        if (
+            wishes.length ===
+            0
+        ) {
+
+            const empty =
+                document.createElement(
+                    "div"
+                );
+
+            empty.className =
+                "wish-card wish-empty-card";
+
+            empty.innerHTML =
+                `
+                    <h4>
+                        Belum ada ucapan
+                    </h4>
+
+                    <p>
+                        Jadilah yang pertama
+                        memberikan doa. 🤍
+                    </p>
+                `;
+
+            wishList.appendChild(
+                empty
+            );
+
+            return;
+
+        }
 
 
         wishes.forEach(
@@ -1434,6 +1469,29 @@ async function loadWishes() {
             "Gagal memuat wishes:",
             error
         );
+
+
+        if (wishCountLabel) {
+
+            wishCountLabel.textContent =
+                "Belum tersedia";
+
+        }
+
+        wishList.innerHTML =
+            `
+                <div class="wish-card wish-empty-card">
+
+                    <h4>
+                        Ucapan belum dapat dimuat
+                    </h4>
+
+                    <p>
+                        Silakan coba lagi beberapa saat lagi.
+                    </p>
+
+                </div>
+            `;
 
     }
 
@@ -1494,30 +1552,38 @@ if (wishForm) {
 
             try {
 
-                await fetch(
-                    SCRIPT_URL,
-                    {
-                        method:
-                            "POST",
+                const response =
+                    await fetch(
+                        SCRIPT_URL,
+                        {
+                            method:
+                                "POST",
 
-                        body:
-                            JSON.stringify({
+                            body:
+                                JSON.stringify({
 
-                                nama:
-                                    wishNama,
+                                    nama:
+                                        wishNama,
 
-                                kehadiran:
-                                    "Wedding Wishes",
+                                    kehadiran:
+                                        "Wedding Wishes",
 
-                                jumlah:
-                                    "",
+                                    jumlah:
+                                        "",
 
-                                ucapan:
-                                    ucapan
+                                    ucapan:
+                                        ucapan
 
-                            })
-                    }
-                );
+                                })
+                        }
+                    );
+
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Wishes gagal dikirim."
+                    );
+                }
 
 
                 document
@@ -1526,12 +1592,6 @@ if (wishForm) {
                     )
                     .value = "";
 
-
-                /*
-                 * Reload dari spreadsheet
-                 * agar yang tampil adalah
-                 * data yang benar-benar tersimpan.
-                 */
 
                 await loadWishes();
 
@@ -1590,9 +1650,38 @@ copyButtons.forEach(
 
                 try {
 
-                    await navigator.clipboard.writeText(
-                        account
-                    );
+                    if (
+                        navigator.clipboard &&
+                        window.isSecureContext
+                    ) {
+
+                        await navigator.clipboard.writeText(
+                            account
+                        );
+
+                    } else {
+
+                        const temp =
+                            document.createElement(
+                                "input"
+                            );
+
+                        temp.value =
+                            account;
+
+                        document.body.appendChild(
+                            temp
+                        );
+
+                        temp.select();
+
+                        document.execCommand(
+                            "copy"
+                        );
+
+                        temp.remove();
+
+                    }
 
 
                     const originalText =
@@ -1625,43 +1714,9 @@ copyButtons.forEach(
 
                 } catch (error) {
 
-                    /*
-                     * Fallback sederhana.
-                     */
-
-                    const temp =
-                        document.createElement(
-                            "input"
-                        );
-
-                    temp.value =
-                        account;
-
-                    document.body.appendChild(
-                        temp
-                    );
-
-                    temp.select();
-
-                    document.execCommand(
-                        "copy"
-                    );
-
-                    temp.remove();
-
-
-                    button.textContent =
-                        "✓ Tersalin";
-
-
-                    setTimeout(
-                        () => {
-
-                            button.textContent =
-                                "Salin Rekening";
-
-                        },
-                        1800
+                    console.error(
+                        "Copy rekening error:",
+                        error
                     );
 
                 }
@@ -1707,15 +1762,8 @@ if (calendarButton) {
                 );
 
 
-            /*
-             * Acara 28 Desember 2026.
-             *
-             * Format Google Calendar:
-             * YYYYMMDDTHHMMSS/YYYYMMDDTHHMMSS
-             */
-
             const dates =
-                "20261228T030000/20261228T080000";
+                "20261228T030000Z/20261228T080000Z";
 
 
             const url =
@@ -2017,15 +2065,6 @@ if (
                 window.scrollY || 0;
 
 
-            /*
-             * Cover terkunci sehingga
-             * nilainya hampir selalu 0.
-             *
-             * Tetap disiapkan untuk
-             * efek ringan saat browser
-             * melakukan overscroll.
-             */
-
             const offset =
                 Math.min(
                     scrollY * 0.12,
@@ -2152,11 +2191,6 @@ if (
 
 getGuestName();
 
-
-/*
- * Pastikan cover menjadi
- * tampilan awal.
- */
 
 if (cover) {
 
