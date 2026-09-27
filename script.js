@@ -290,6 +290,7 @@ if (
    COUPLE PHOTO TRANSITION
    SIWI ATAS + SATRIYA BAWAH
    2 FOTO SAJA PER MEMPELAI
+   HANYA FOTONYA YANG BERGANTI
 ========================================================= */
 
 const coupleAlbums = {
@@ -303,21 +304,9 @@ const coupleAlbums = {
             "images/siwi2.jpg"
         ],
 
-        wrapper:
+        photo:
             document.getElementById(
-                "siwiPhoto1"
-            )?.closest(
-                ".couple-photo-stack"
-            ),
-
-        active:
-            document.getElementById(
-                "siwiPhoto1"
-            ),
-
-        next:
-            document.getElementById(
-                "siwiPhoto2"
+                "siwiPhoto"
             ),
 
         dots: []
@@ -334,21 +323,9 @@ const coupleAlbums = {
             "images/satriya2.jpg"
         ],
 
-        wrapper:
+        photo:
             document.getElementById(
-                "satriyaPhoto1"
-            )?.closest(
-                ".couple-photo-stack"
-            ),
-
-        active:
-            document.getElementById(
-                "satriyaPhoto1"
-            ),
-
-        next:
-            document.getElementById(
-                "satriyaPhoto2"
+                "satriyaPhoto"
             ),
 
         dots: []
@@ -395,7 +372,7 @@ function bindCoupleDots(
                 "click",
                 () => {
 
-                    transitionCouplePhoto(
+                    changeCouplePhoto(
                         albumName,
                         index
                     );
@@ -409,7 +386,9 @@ function bindCoupleDots(
 }
 
 
-if (coupleProfiles.length >= 2) {
+if (
+    coupleProfiles.length >= 2
+) {
 
     bindCoupleDots(
         coupleProfiles[0],
@@ -437,8 +416,7 @@ function updateCoupleDots(
 
             dot.classList.toggle(
                 "active",
-                dotIndex ===
-                index
+                dotIndex === index
             );
 
         }
@@ -447,7 +425,7 @@ function updateCoupleDots(
 }
 
 
-function transitionCouplePhoto(
+function changeCouplePhoto(
     albumName,
     index
 ) {
@@ -459,96 +437,62 @@ function transitionCouplePhoto(
 
     if (
         !album ||
-        !album.wrapper ||
-        !album.active ||
-        !album.next
+        !album.photo
     ) {
         return;
     }
 
 
-    const normalizedIndex =
+    const nextIndex =
         index %
         album.images.length;
 
 
     if (
-        normalizedIndex ===
+        nextIndex ===
         album.current
     ) {
         return;
     }
 
 
-    /*
-     * Pastikan foto berikutnya
-     * sudah disiapkan pada layer.
-     */
-
-    album.next.src =
-        album.images[
-            normalizedIndex
-        ];
+    album.photo.classList.add(
+        "fade-photo"
+    );
 
 
-    const startCrossfade =
+    setTimeout(
         () => {
 
-            album.wrapper.classList.add(
-                "crossfade"
-            );
+            album.photo.src =
+                album.images[
+                    nextIndex
+                ];
 
 
             album.current =
-                normalizedIndex;
+                nextIndex;
 
 
             updateCoupleDots(
                 album,
-                normalizedIndex
+                nextIndex
             );
 
 
-            setTimeout(
+            requestAnimationFrame(
                 () => {
 
-                    const oldSrc =
-                        album.active.src;
-
-
-                    album.active.src =
-                        album.next.src;
-
-
-                    album.next.src =
-                        oldSrc;
-
-
-                    album.wrapper.classList.remove(
-                        "crossfade"
+                    album.photo.classList.remove(
+                        "fade-photo"
                     );
 
-                },
-                1100
+                }
             );
 
-        };
-
-
-    if (
-        album.next.complete
-    ) {
-
-        requestAnimationFrame(
-            startCrossfade
-        );
-
-    } else {
-
-        album.next.onload =
-            startCrossfade;
-
-    }
+        },
+        520
+    );
 
 }
 
@@ -570,7 +514,7 @@ function startCoupleAlbum(
     setInterval(
         () => {
 
-            transitionCouplePhoto(
+            changeCouplePhoto(
                 albumName,
                 (
                     album.current +
