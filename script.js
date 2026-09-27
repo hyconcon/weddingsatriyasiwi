@@ -1007,7 +1007,7 @@ if (rsvpForm) {
 
             const deadline =
                 new Date(
-                    "November 1, 2026 23:59:59 GMT+0700"
+                    "November 6, 2026 23:59:59 GMT+0700"
                 );
 
 
