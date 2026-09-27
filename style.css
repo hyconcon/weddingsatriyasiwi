@@ -142,6 +142,7 @@ a {
 .reveal {
     opacity: 0;
     transform: translateY(45px);
+
     transition:
         opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
         transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
@@ -418,16 +419,17 @@ a {
 
 
 /* =========================================================
-   COUPLE
+   COUPLE — TAMPIL ATAS & BAWAH
 ========================================================= */
 
 .couple-section {
     background: var(--paper);
 }
 
-.couple-slider {
+.couple-profile {
     width: min(100%, 440px);
     margin: 0 auto;
+    text-align: center;
 }
 
 .couple-photo-wrapper {
@@ -436,23 +438,55 @@ a {
     margin-bottom: 30px;
 }
 
-.couple-photo {
-    width: 100%;
-
+.couple-photo-stack {
+    position: relative;
+    isolation: isolate;
     aspect-ratio: 4 / 5;
+    background: #ddd8d1;
+}
+
+.couple-photo-stack .couple-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 
     object-fit: cover;
 
-    opacity: 1;
-
     transition:
-        opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 1.05s cubic-bezier(0.22,1,0.36,1),
+        transform 1.2s cubic-bezier(0.22,1,0.36,1);
 }
 
-.couple-photo.fade-photo {
+.couple-photo-stack .couple-photo:first-child {
+    position: absolute;
+}
+
+.couple-photo-active {
+    opacity: 1;
+    z-index: 2;
+    transform: scale(1);
+}
+
+.couple-photo-next {
     opacity: 0;
-    transform: scale(1.025);
+    z-index: 3;
+    transform: scale(1.02);
+}
+
+.couple-photo-stack.crossfade .couple-photo-active {
+    opacity: 0;
+    transform: scale(1.02);
+}
+
+.couple-photo-stack.crossfade .couple-photo-next {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.couple-info {
+    text-align: center;
 }
 
 .couple-role {
@@ -481,8 +515,8 @@ a {
     font-size: 14px;
 }
 
-.couple-dots {
-    margin-top: 30px;
+.couple-photo-dots {
+    margin-top: 15px;
 
     display: flex;
     justify-content: center;
@@ -490,7 +524,7 @@ a {
     gap: 8px;
 }
 
-.couple-dot {
+.couple-photo-dot {
     width: 7px;
     height: 7px;
 
@@ -506,9 +540,31 @@ a {
         background 0.3s;
 }
 
-.couple-dot.active {
+.couple-photo-dot.active {
     background: #333;
     transform: scale(1.4);
+}
+
+.couple-separator {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 58px 0;
+    color: #aaa39b;
+}
+
+.couple-separator::before,
+.couple-separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.couple-separator span {
+    font-size: 25px;
+    font-style: italic;
 }
 
 
@@ -1005,6 +1061,18 @@ a {
     margin: 0 auto;
 
     text-align: left;
+
+    padding: 28px;
+
+    border:
+        1px solid #d5d0c9;
+
+    background:
+        rgba(255,255,255,0.35);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.035);
 }
 
 .form-group {
@@ -1033,7 +1101,7 @@ a {
     border:
         1px solid #d3cec7;
 
-    background: white;
+    background: #faf9f7;
 
     padding:
         13px 14px;
@@ -1047,6 +1115,10 @@ a {
     color: #333;
 
     border-radius: 0;
+
+    transition:
+        border-color 0.25s,
+        box-shadow 0.25s;
 }
 
 .form-group textarea {
@@ -1057,6 +1129,10 @@ a {
 .form-group select:focus,
 .form-group textarea:focus {
     border-color: #777;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(80,80,80,0.05);
 }
 
 .btn-submit {
@@ -1119,6 +1195,8 @@ a {
 
     background:
         rgba(255,255,255,0.55);
+
+    text-align: center;
 }
 
 .rsvp-counter span {
@@ -1174,11 +1252,42 @@ a {
     background: #e9e5de;
 }
 
+.wish-results-heading {
+    max-width: 600px;
+
+    margin:
+        45px auto 14px;
+
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    text-align: left;
+}
+
+.wish-results-heading span {
+    font-size: 20px;
+}
+
+.wish-results-heading small {
+    color: var(--muted);
+
+    font-family: var(--sans);
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
 .wish-list {
     max-width: 600px;
 
     margin:
-        45px auto 0;
+        0 auto;
 
     display: flex;
 
@@ -1239,6 +1348,8 @@ a {
     font-size: 12px;
 
     line-height: 1.7;
+
+    white-space: pre-wrap;
 }
 
 
@@ -1682,10 +1793,6 @@ a {
         font-size: 14px;
     }
 
-    .couple-slider {
-        max-width: 390px;
-    }
-
     .story-tabs {
         gap: 5px;
     }
@@ -1746,6 +1853,15 @@ a {
         grid-column: span 2;
     }
 
+    .rsvp-form,
+    .wish-form {
+        padding: 22px 18px;
+    }
+
+    .wish-results-heading {
+        margin-top: 36px;
+    }
+
     .bottom-nav {
         bottom: 8px;
 
@@ -1776,13 +1892,36 @@ a {
 
 /* =========================================================
    DESKTOP
-   UNDANGAN DI SEBELAH KANAN
+   FOTO DI KIRI — PANEL UNDANGAN TERPISAH DI KANAN
 ========================================================= */
 
 @media (min-width: 1000px) {
 
+    html,
     body {
         background: #d9d5ce;
+    }
+
+    body {
+        position: relative;
+    }
+
+    body::before {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        z-index: -5;
+
+        background:
+            linear-gradient(
+                rgba(30,30,30,0.10),
+                rgba(30,30,30,0.10)
+            ),
+            url("images/desktop-bg.jpg")
+            center center / cover no-repeat;
     }
 
     .invitation-app {
@@ -1792,18 +1931,21 @@ a {
         );
 
         margin-left: auto;
-        margin-right: 6vw;
 
-        background: var(--bg);
+        margin-right: 0;
+
+        background:
+            var(--bg);
 
         min-height: 100vh;
 
         box-shadow:
-            -15px 0 50px
-            rgba(0,0,0,0.12),
+            -18px 0 55px
+            rgba(0,0,0,0.16);
 
-            15px 0 50px
-            rgba(0,0,0,0.05);
+        position: relative;
+
+        z-index: 5;
     }
 
     .cover {
@@ -1813,13 +1955,20 @@ a {
         );
 
         left: auto;
-        right: 6vw;
+
+        right: 0;
 
         height: 100vh;
 
+        min-height: 650px;
+
         box-shadow:
-            -15px 0 50px
-            rgba(0,0,0,0.12);
+            -18px 0 55px
+            rgba(0,0,0,0.16);
+
+        border-left:
+            1px solid
+            rgba(0,0,0,0.06);
     }
 
     .bottom-nav {
@@ -1830,13 +1979,18 @@ a {
             );
 
         left: auto;
-        right: 8vw;
+
+        right: 1.2vw;
 
         transform: none;
     }
 
     .music-button {
-        right: calc(6vw + 20px);
+        right:
+            calc(
+                1.2vw +
+                20px
+            );
     }
 
 }
@@ -1854,7 +2008,9 @@ a {
 
     .reveal {
         opacity: 1;
+
         transform: none;
+
         transition: none;
     }
 
