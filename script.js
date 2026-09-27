@@ -287,7 +287,11 @@ if (
 
 
 const weddingVideo = document.querySelector(".wedding-video");
-if (weddingVideo) weddingVideo.muted = true;
+if (weddingVideo) {
+    weddingVideo.muted = true;
+    weddingVideo.defaultMuted = true;
+    weddingVideo.volume = 0;
+}
 
 
 /* =========================================================
@@ -422,12 +426,12 @@ if (
 
     bindCoupleDots(
         coupleProfiles[0],
-        "siwi"
+        "satriya"
     );
 
     bindCoupleDots(
         coupleProfiles[1],
-        "satriya"
+        "siwi"
     );
 
 }
