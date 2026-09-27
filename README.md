@@ -1,2 +1,2 @@
-# weddingsiwisatriya
-Website Undangan Siwi &amp; Satriya
+# weddingsatriyasiwi
+Website Undangan Satriya &amp; Siwi
