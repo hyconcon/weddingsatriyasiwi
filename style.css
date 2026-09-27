@@ -1921,6 +1921,9 @@ a {
 
         z-index: 0;
 
+        /* Khusus foto background PC: hitam-putih */
+        filter: grayscale(100%);
+
         background-image:
             linear-gradient(
                 rgba(25,25,25,0.10),
