@@ -4,26 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>The Wedding of Siwi & Satriya</title>
+    <title>Undangan Pernikahan | Siwi & Satriya</title>
 
     <meta
         name="description"
-        content="The Wedding of Siwi & Satriya — 28 Desember 2026"
+        content="Undangan Pernikahan Siwi & Satriya — 28 Desember 2026"
     >
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-<!-- =========================================================
-     AUDIO
-========================================================= -->
-
-<audio id="music" loop>
-    <source src="music/Canon in D.mp3" type="audio/mpeg">
-</audio>
-
 
 <!-- =========================================================
      COVER
@@ -42,7 +33,7 @@
     <div class="cover-content">
 
         <p class="cover-small">
-            THE WEDDING OF
+            UNDANGAN PERNIKAHAN
         </p>
 
         <h1>
@@ -81,8 +72,10 @@
 
 
 <!-- =========================================================
-     MAIN
+     APP / MAIN
 ========================================================= -->
+
+<div id="invitationApp" class="invitation-app">
 
 <main id="mainContent">
 
@@ -99,7 +92,7 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            THE WEDDING OF
+            UNDANGAN PERNIKAHAN
         </p>
 
         <h2>
@@ -167,7 +160,7 @@
 
 
 <!-- =========================================================
-     BRIDE & GROOM
+     MEMPELAI
 ========================================================= -->
 
 <section
@@ -178,37 +171,33 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            THE BRIDE & GROOM
+            MEMPELAI
         </p>
 
         <h2 class="section-title">
             Mempelai
         </h2>
 
-
         <div class="couple-slider">
 
-            <!-- FOTO MEMPELAI -->
             <div class="couple-photo-wrapper">
 
                 <img
                     id="couplePhoto"
                     src="images/siwi.jpg"
-                    alt="Mempelai"
+                    alt="Margareta Septa Prima Siwi"
                     class="couple-photo grayscale"
                 >
 
             </div>
 
-
-            <!-- INFORMASI MEMPELAI -->
             <div class="couple-info">
 
                 <p
                     id="coupleRole"
                     class="couple-role"
                 >
-                    THE BRIDE
+                    MEMPELAI WANITA
                 </p>
 
                 <h3 id="coupleName">
@@ -229,18 +218,21 @@
 
         </div>
 
-
         <div class="couple-dots">
 
-            <span
+            <button
+                type="button"
                 class="couple-dot active"
                 data-couple="0"
-            ></span>
+                aria-label="Mempelai Wanita"
+            ></button>
 
-            <span
+            <button
+                type="button"
                 class="couple-dot"
                 data-couple="1"
-            ></span>
+                aria-label="Mempelai Laki-laki"
+            ></button>
 
         </div>
 
@@ -250,7 +242,7 @@
 
 
 <!-- =========================================================
-     OUR STORY
+     KISAH KAMI
 ========================================================= -->
 
 <section
@@ -261,125 +253,175 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            OUR STORY 🤍
+            KISAH KAMI 🤍
         </p>
 
         <h2 class="section-title">
-            Our Story 🤍
+            Kisah Kami
         </h2>
 
+        <div class="story-tabs">
 
-        <div class="story-list">
+            <button
+                type="button"
+                class="story-tab active"
+                data-story="2016"
+            >
+                2016
+            </button>
+
+            <button
+                type="button"
+                class="story-tab"
+                data-story="2023"
+            >
+                2023
+            </button>
+
+            <button
+                type="button"
+                class="story-tab"
+                data-story="2024"
+            >
+                2024
+            </button>
+
+            <button
+                type="button"
+                class="story-tab"
+                data-story="2025"
+            >
+                2025
+            </button>
+
+            <button
+                type="button"
+                class="story-tab"
+                data-story="2026"
+            >
+                2026
+            </button>
+
+        </div>
 
 
-            <article class="story-item">
+        <div class="story-panels">
 
-                <div class="story-year">
+            <article
+                class="story-panel active"
+                data-story-panel="2016"
+            >
+
+                <span class="story-panel-year">
                     2016
-                </div>
+                </span>
 
-                <div class="story-content">
+                <h3>
+                    Pertemuan Pertama
+                </h3>
 
-                    <h3>
-                        Pertemuan Pertama
-                    </h3>
-
-                    <p>
-                        Tidak ada yang spesial saat itu. Ia hanya pelanggan di tempat makan Ibu, dan kami pun hanya sekadar saling tahu. Namun siapa sangka, dari perjumpaan sesederhana itu, cerita kami berdua dimulai.
-                    </p>
-
-                </div>
+                <p>
+                    Ia adalah salah satu pelanggan di warung Ibu.
+                    Kami hanya saling tahu, tanpa pernah menyangka
+                    bahwa suatu hari kami akan dipertemukan kembali.
+                </p>
 
             </article>
 
 
-            <article class="story-item">
+            <article
+                class="story-panel"
+                data-story-panel="2023"
+            >
 
-                <div class="story-year">
+                <span class="story-panel-year">
                     2023
-                </div>
+                </span>
 
-                <div class="story-content">
+                <h3>
+                    Pertemuan Kembali
+                </h3>
 
-                    <h3>
-                        Cerita itu dimulai
-                    </h3>
-
-                    <p>
-                        Sebuah balasan pada Instagram Story membawa kami pada percakapan yang akhirnya membuat kami benar-benar saling mengenal. Dari sana, perlahan kami mulai menjadi lebih dekat.
-                    </p>
-
-                </div>
+                <p>
+                    Tujuh tahun kemudian, sebuah balasan Instagram
+                    Story membawa kami kembali dalam sebuah percakapan.
+                    Dari sana, kami mulai saling mengenal lebih dekat.
+                </p>
 
             </article>
 
 
-            <article class="story-item">
+            <article
+                class="story-panel"
+                data-story-panel="2024"
+            >
 
-                <div class="story-year">
+                <span class="story-panel-year">
                     2024
-                </div>
+                </span>
 
-                <div class="story-content">
+                <h3>
+                    Menjadi Kita
+                </h3>
 
-                    <h3>
-                        Menjadi Kita
-                    </h3>
-
-                    <p>
-                        Di awal tahun 2024, kami memutuskan untuk berjalan bersama. Tanpa pernah menyangka, kedekatan yang baru terjalin membawa kami pada sebuah hubungan yang begitu berarti.
-                    </p>
-
-                </div>
+                <p>
+                    Kedekatan itu membawa kami pada keputusan untuk
+                    berjalan bersama. Perlahan, kami mulai membangun
+                    cerita sebagai kita.
+                </p>
 
             </article>
 
 
-            <article class="story-item">
+            <article
+                class="story-panel"
+                data-story-panel="2025"
+            >
 
-                <div class="story-year">
+                <span class="story-panel-year">
                     2025
-                </div>
+                </span>
 
-                <div class="story-content">
+                <h3>
+                    Bertumbuh Bersama
+                </h3>
 
-                    <h3>
-                        Bertumbuh Bersama
-                    </h3>
-
-                    <p>
-                        Kami belajar tentang cinta, komitmen, dan bertumbuh dalam iman. Di bulan Juli, ia menyampaikan niatnya untuk melangkah lebih serius. Kemudian di bulan Desember, niat baik tersebut dilanjutkan dengan pertemuan kedua keluarga.
-                    </p>
-
-                </div>
+                <p>
+                    Dalam perjalanan, kami belajar tentang cinta,
+                    komitmen, dan iman. Hingga niat untuk melangkah
+                    lebih serius membawa kami pada pertemuan kedua keluarga.
+                </p>
 
             </article>
 
 
-            <article class="story-item">
+            <article
+                class="story-panel"
+                data-story-panel="2026"
+            >
 
-                <div class="story-year">
+                <span class="story-panel-year">
                     2026
-                </div>
+                </span>
 
-                <div class="story-content">
+                <h3>
+                    Menjadi Teman Hidup
+                </h3>
 
-                    <h3>
-                        Our Forever Begins
-                    </h3>
+                <p>
+                    Setelah melewati berbagai proses, kami memilih
+                    untuk melanjutkan perjalanan ini bersama,
+                    dalam kasih dan penyertaan Tuhan.
+                </p>
 
-                    <p>
-                        Setelah berbagai proses yang kami lewati, kami belajar bahwa cinta bukan hanya tentang menemukan satu sama lain, tetapi tentang memilih untuk terus berjalan bersama.
-                    </p>
-
-                    <p class="story-ending">
-                        Dari yang dahulu hanya sebatas saling tahu, kini kami memilih untuk menjadi teman hidup. 🤍
-                    </p>
-
-                </div>
+                <p class="story-ending">
+                    Dari sebuah pertemuan sederhana, Tuhan menuntun
+                    langkah kami hingga akhirnya kami dipertemukan
+                    kembali, dipersatukan, dan siap menjalani kehidupan
+                    bersama. 🤍
+                </p>
 
             </article>
-
 
         </div>
 
@@ -389,7 +431,7 @@
 
 
 <!-- =========================================================
-     SAVE THE DATE
+     MENUJU HARI BAHAGIA
 ========================================================= -->
 
 <section
@@ -400,7 +442,7 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            SAVE THE DATE
+            MENUJU HARI BAHAGIA
         </p>
 
         <h2 class="section-title">
@@ -442,7 +484,7 @@
 
 
 <!-- =========================================================
-     DETAIL ACARA + LOKASI
+     HARI PERNIKAHAN
 ========================================================= -->
 
 <section
@@ -453,18 +495,16 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            WEDDING DAY
+            HARI PERNIKAHAN
         </p>
 
         <h2 class="section-title">
-            Detail Acara
+            Hari Pernikahan
         </h2>
 
 
         <div class="event-list">
 
-
-            <!-- PEMBERKATAN -->
 
             <article class="event-card">
 
@@ -499,8 +539,6 @@
 
             </article>
 
-
-            <!-- RESEPSI -->
 
             <article class="event-card">
 
@@ -539,6 +577,18 @@
 
             </article>
 
+        </div>
+
+
+        <div class="event-actions">
+
+            <button
+                type="button"
+                id="calendarButton"
+                class="action-button"
+            >
+                Tambahkan ke Google Calendar
+            </button>
 
         </div>
 
@@ -548,7 +598,7 @@
 
 
 <!-- =========================================================
-     GALLERY
+     GALERI
 ========================================================= -->
 
 <section
@@ -559,17 +609,23 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            OUR MOMENTS
+            GALERI KAMI
         </p>
 
         <h2 class="section-title">
-            Galeri
+            Galeri Kami
         </h2>
 
 
         <div class="gallery-collage">
 
-            <div class="gallery-item gallery-large">
+
+            <button
+                type="button"
+                class="gallery-item gallery-large"
+                data-lightbox="images/photo1.jpg"
+                aria-label="Buka foto"
+            >
 
                 <img
                     src="images/photo1.jpg"
@@ -578,67 +634,170 @@
                     class="grayscale"
                 >
 
-            </div>
+            </button>
 
 
-            <div class="gallery-item">
+            <button
+                type="button"
+                class="gallery-item"
+                data-lightbox="images/photo2.jpg"
+                aria-label="Buka foto"
+            >
 
                 <img
                     src="images/photo2.jpg"
-                    alt="Foto prewedding"
+                    alt="Foto Siwi dan Satriya"
                     loading="lazy"
                     class="grayscale"
                 >
 
-            </div>
+            </button>
 
 
-            <div class="gallery-item">
+            <button
+                type="button"
+                class="gallery-item"
+                data-lightbox="images/photo3.jpg"
+                aria-label="Buka foto"
+            >
 
                 <img
                     src="images/photo3.jpg"
-                    alt="Foto prewedding"
+                    alt="Foto Siwi dan Satriya"
                     loading="lazy"
                     class="grayscale"
                 >
 
-            </div>
+            </button>
 
 
-            <div class="gallery-item">
+            <button
+                type="button"
+                class="gallery-item"
+                data-lightbox="images/photo4.jpg"
+                aria-label="Buka foto"
+            >
 
                 <img
                     src="images/photo4.jpg"
-                    alt="Foto prewedding"
+                    alt="Foto Siwi dan Satriya"
                     loading="lazy"
                     class="grayscale"
                 >
 
-            </div>
+            </button>
 
 
-            <div class="gallery-item">
+            <button
+                type="button"
+                class="gallery-item"
+                data-lightbox="images/photo5.jpg"
+                aria-label="Buka foto"
+            >
 
                 <img
                     src="images/photo5.jpg"
-                    alt="Foto prewedding"
+                    alt="Foto Siwi dan Satriya"
                     loading="lazy"
                     class="grayscale"
                 >
 
-            </div>
+            </button>
 
 
-            <div class="gallery-item gallery-wide">
+            <button
+                type="button"
+                class="gallery-item gallery-wide"
+                data-lightbox="images/photo6.jpg"
+                aria-label="Buka foto"
+            >
 
                 <img
                     src="images/photo6.jpg"
-                    alt="Foto prewedding"
+                    alt="Foto Siwi dan Satriya"
                     loading="lazy"
                     class="grayscale"
                 >
 
-            </div>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-lightbox="images/photo7.jpg"
+                aria-label="Buka foto"
+            >
+
+                <img
+                    src="images/photo7.jpg"
+                    alt="Foto Siwi dan Satriya"
+                    loading="lazy"
+                    class="grayscale"
+                >
+
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-lightbox="images/photo8.jpg"
+                aria-label="Buka foto"
+            >
+
+                <img
+                    src="images/photo8.jpg"
+                    alt="Foto Siwi dan Satriya"
+                    loading="lazy"
+                    class="grayscale"
+                >
+
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item gallery-wide"
+                data-lightbox="images/photo9.jpg"
+                aria-label="Buka foto"
+            >
+
+                <img
+                    src="images/photo9.jpg"
+                    alt="Foto Siwi dan Satriya"
+                    loading="lazy"
+                    class="grayscale"
+                >
+
+            </button>
+
+
+        </div>
+
+
+        <!-- VIDEO -->
+
+        <div class="video-wrapper">
+
+            <p class="video-label">
+                OUR MOMENT
+            </p>
+
+            <video
+                class="wedding-video"
+                controls
+                playsinline
+                preload="metadata"
+            >
+                <source
+                    src="video/video.mp4"
+                    type="video/mp4"
+                >
+
+                Browser Anda tidak mendukung video.
+
+            </video>
 
         </div>
 
@@ -659,7 +818,7 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            RSVP
+            KONFIRMASI KEHADIRAN
         </p>
 
         <h2 class="section-title">
@@ -668,8 +827,21 @@
 
         <p class="section-description">
             Mohon konfirmasi kehadiran Anda
-            sebelum acara berlangsung.
+            paling lambat <strong>1 November 2026</strong>.
         </p>
+
+
+        <div class="rsvp-counter">
+
+            <span id="rsvpCounter">
+                0
+            </span>
+
+            <small>
+                Konfirmasi diterima
+            </small>
+
+        </div>
 
 
         <form
@@ -775,11 +947,11 @@
     <div class="section-inner">
 
         <p class="eyebrow">
-            WEDDING WISHES
+            UCAPAN & DOA
         </p>
 
         <h2 class="section-title">
-            Wedding Wishes
+            Ucapan & Doa
         </h2>
 
         <p class="section-description">
@@ -828,14 +1000,13 @@
             <button
                 type="submit"
                 class="btn-submit"
+                id="submitWish"
             >
                 Kirim Ucapan
             </button>
 
         </form>
 
-
-        <!-- DAFTAR WISHES -->
 
         <div
             id="wishList"
@@ -866,6 +1037,7 @@
             Tanda Kasih
         </h2>
 
+
         <div class="gift-list">
 
 
@@ -875,13 +1047,24 @@
                     BCA
                 </h3>
 
-                <p class="account-number">
+                <p
+                    class="account-number"
+                    id="account1"
+                >
                     0131366158
                 </p>
 
                 <p>
                     a.n. Margareta Septa Prima Siwi
                 </p>
+
+                <button
+                    type="button"
+                    class="copy-account"
+                    data-account="0131366158"
+                >
+                    Salin Rekening
+                </button>
 
             </div>
 
@@ -892,13 +1075,24 @@
                     BCA
                 </h3>
 
-                <p class="account-number">
+                <p
+                    class="account-number"
+                    id="account2"
+                >
                     3200875965
                 </p>
 
                 <p>
                     a.n. Ignatius Satriya Bagus Pradana
                 </p>
+
+                <button
+                    type="button"
+                    class="copy-account"
+                    data-account="3200875965"
+                >
+                    Salin Rekening
+                </button>
 
             </div>
 
@@ -924,7 +1118,7 @@
         <div class="closing-photo-wrapper">
 
             <img
-                src="images/couple-main.jpg"
+                src="images/closing.jpg"
                 alt="Siwi & Satriya"
                 class="closing-photo grayscale"
             >
@@ -956,6 +1150,15 @@
             🤍
         </div>
 
+
+        <button
+            type="button"
+            id="shareWhatsApp"
+            class="share-button"
+        >
+            Bagikan via WhatsApp
+        </button>
+
     </div>
 
 </section>
@@ -982,7 +1185,7 @@
 
     <a href="#story">
         <span>✦</span>
-        <small>Story</small>
+        <small>Kisah</small>
     </a>
 
     <a href="#event">
@@ -1002,10 +1205,24 @@
 
 </nav>
 
+</div>
+
 
 <!-- =========================================================
-     MUSIC BUTTON
+     MUSIC
 ========================================================= -->
+
+<audio
+    id="music"
+    loop
+    preload="auto"
+>
+    <source
+        src="music/Canon in D.mp3"
+        type="audio/mpeg"
+    >
+</audio>
+
 
 <button
     id="musicButton"
@@ -1015,6 +1232,34 @@
 >
     ♫
 </button>
+
+
+<!-- =========================================================
+     LIGHTBOX
+========================================================= -->
+
+<div
+    id="lightbox"
+    class="lightbox"
+    aria-hidden="true"
+>
+
+    <button
+        id="lightboxClose"
+        class="lightbox-close"
+        type="button"
+        aria-label="Tutup"
+    >
+        ×
+    </button>
+
+    <img
+        id="lightboxImage"
+        src=""
+        alt="Foto"
+    >
+
+</div>
 
 
 <script src="script.js"></script>
