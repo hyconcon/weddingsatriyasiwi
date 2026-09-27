@@ -420,6 +420,8 @@ a {
 
 /* =========================================================
    COUPLE — TAMPIL ATAS & BAWAH
+   SATU FOTO SAJA PER MEMPELAI
+   FOTO BERGANTI OTOMATIS
 ========================================================= */
 
 .couple-section {
@@ -436,53 +438,28 @@ a {
     width: 100%;
     overflow: hidden;
     margin-bottom: 30px;
-}
-
-.couple-photo-stack {
-    position: relative;
-    isolation: isolate;
-    aspect-ratio: 4 / 5;
     background: #ddd8d1;
 }
 
-.couple-photo-stack .couple-photo {
-    position: absolute;
-    inset: 0;
+.couple-photo {
     width: 100%;
-    height: 100%;
-    margin: 0;
+
+    aspect-ratio: 4 / 5;
 
     object-fit: cover;
 
+    opacity: 1;
+
+    transform: scale(1);
+
     transition:
-        opacity 1.05s cubic-bezier(0.22,1,0.36,1),
-        transform 1.2s cubic-bezier(0.22,1,0.36,1);
+        opacity 0.85s cubic-bezier(0.22,1,0.36,1),
+        transform 0.95s cubic-bezier(0.22,1,0.36,1);
 }
 
-.couple-photo-stack .couple-photo:first-child {
-    position: absolute;
-}
-
-.couple-photo-active {
-    opacity: 1;
-    z-index: 2;
-    transform: scale(1);
-}
-
-.couple-photo-next {
+.couple-photo.fade-photo {
     opacity: 0;
-    z-index: 3;
-    transform: scale(1.02);
-}
-
-.couple-photo-stack.crossfade .couple-photo-active {
-    opacity: 0;
-    transform: scale(1.02);
-}
-
-.couple-photo-stack.crossfade .couple-photo-next {
-    opacity: 1;
-    transform: scale(1);
+    transform: scale(1.018);
 }
 
 .couple-info {
@@ -491,9 +468,13 @@ a {
 
 .couple-role {
     font-family: var(--sans);
+
     letter-spacing: 4px;
+
     font-size: 9px;
+
     color: var(--muted);
+
     margin-bottom: 12px;
 }
 
@@ -506,7 +487,9 @@ a {
         );
 
     font-weight: 400;
+
     line-height: 1.25;
+
     margin-bottom: 18px;
 }
 
@@ -519,6 +502,7 @@ a {
     margin-top: 15px;
 
     display: flex;
+
     justify-content: center;
 
     gap: 8px;
@@ -531,6 +515,7 @@ a {
     padding: 0;
 
     border: 0;
+
     border-radius: 50%;
 
     background: #bcb7b0;
@@ -547,19 +532,28 @@ a {
 
 .couple-separator {
     width: 100%;
+
     display: flex;
+
     align-items: center;
+
     gap: 16px;
+
     margin: 58px 0;
+
     color: #aaa39b;
 }
 
 .couple-separator::before,
 .couple-separator::after {
     content: "";
+
     flex: 1;
+
     height: 1px;
-    background: var(--border);
+
+    background:
+        var(--border);
 }
 
 .couple-separator span {
@@ -1895,6 +1889,10 @@ a {
    FOTO DI KIRI — PANEL UNDANGAN TERPISAH DI KANAN
 ========================================================= */
 
+.desktop-background {
+    display: none;
+}
+
 @media (min-width: 1000px) {
 
     html,
@@ -1902,60 +1900,83 @@ a {
         background: #d9d5ce;
     }
 
-    body {
-        position: relative;
-    }
-
-    body::before {
-        content: "";
+    .desktop-background {
+        display: block;
 
         position: fixed;
 
-        inset: 0;
+        top: 0;
+        left: 0;
 
-        z-index: -5;
+        width:
+            calc(
+                100% -
+                min(
+                    760px,
+                    42vw
+                )
+            );
 
-        background:
+        height: 100vh;
+
+        z-index: 0;
+
+        background-image:
             linear-gradient(
-                rgba(30,30,30,0.10),
-                rgba(30,30,30,0.10)
+                rgba(25,25,25,0.10),
+                rgba(25,25,25,0.10)
             ),
-            url("images/desktop-bg.jpg")
-            center center / cover no-repeat;
+            url("images/desktop-bg.jpg"),
+            url("images/couple-main.jpg");
+
+        background-position:
+            center,
+            center,
+            center;
+
+        background-size:
+            cover,
+            cover,
+            cover;
+
+        background-repeat:
+            no-repeat,
+            no-repeat,
+            no-repeat;
     }
 
     .invitation-app {
-        width: min(
-            760px,
-            42vw
-        );
+        width:
+            min(
+                760px,
+                42vw
+            );
+
+        min-height: 100vh;
 
         margin-left: auto;
-
         margin-right: 0;
 
         background:
             var(--bg);
 
-        min-height: 100vh;
+        position: relative;
+
+        z-index: 5;
 
         box-shadow:
             -18px 0 55px
             rgba(0,0,0,0.16);
-
-        position: relative;
-
-        z-index: 5;
     }
 
     .cover {
-        width: min(
-            760px,
-            42vw
-        );
+        width:
+            min(
+                760px,
+                42vw
+            );
 
         left: auto;
-
         right: 0;
 
         height: 100vh;
@@ -1979,10 +2000,11 @@ a {
             );
 
         left: auto;
-
         right: 1.2vw;
 
         transform: none;
+
+        z-index: 110;
     }
 
     .music-button {
@@ -1991,6 +2013,8 @@ a {
                 1.2vw +
                 20px
             );
+
+        z-index: 120;
     }
 
 }
