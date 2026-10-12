@@ -108,6 +108,24 @@ if (openInvitation) {
 
             }
 
+            // Mulai efek masuk section setelah cover hampir selesai menghilang.
+            setTimeout(
+                () => {
+                    if (revealObserver) {
+                        revealElements.forEach((element) => {
+                            element.classList.remove("show");
+                            revealObserver.unobserve(element);
+                            revealObserver.observe(element);
+                        });
+                    } else {
+                        revealElements.forEach((element) => {
+                            element.classList.add("show");
+                        });
+                    }
+                },
+                700
+            );
+
             if (music) {
 
                 music.volume = 0.35;
@@ -212,6 +230,7 @@ if (musicButton) {
 
 /* =========================================================
    FADE IN / REVEAL
+   Animasi section baru mulai setelah undangan dibuka.
 ========================================================= */
 
 const revealElements =
@@ -219,13 +238,14 @@ const revealElements =
         ".reveal"
     );
 
+let revealObserver = null;
 
 if (
     "IntersectionObserver"
     in window
 ) {
 
-    const revealObserver =
+    revealObserver =
         new IntersectionObserver(
             (
                 entries
@@ -233,6 +253,11 @@ if (
 
                 entries.forEach(
                     (entry) => {
+
+                        // Jangan jalankan animasi di balik cover.
+                        if (!invitationOpened) {
+                            return;
+                        }
 
                         if (
                             entry.isIntersecting
@@ -266,18 +291,6 @@ if (
 
             revealObserver.observe(
                 element
-            );
-
-        }
-    );
-
-} else {
-
-    revealElements.forEach(
-        (element) => {
-
-            element.classList.add(
-                "show"
             );
 
         }
@@ -997,29 +1010,6 @@ if (rsvpForm) {
 
                     statusRsvp.textContent =
                         "Mohon lengkapi data RSVP.";
-
-                }
-
-                return;
-
-            }
-
-
-            const deadline =
-                new Date(
-                    "November 6, 2026 23:59:59 GMT+0700"
-                );
-
-
-            if (
-                new Date() >
-                deadline
-            ) {
-
-                if (statusRsvp) {
-
-                    statusRsvp.textContent =
-                        "Konfirmasi kehadiran telah melewati batas waktu.";
 
                 }
 
