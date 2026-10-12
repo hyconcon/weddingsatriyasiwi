@@ -141,16 +141,161 @@ a {
 
 .reveal {
     opacity: 0;
-    transform: translateY(45px);
-
+    transform: translateY(34px);
     transition:
-        opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Isi tiap section muncul berurutan saat section masuk ke layar. */
+.reveal .section-inner > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+        opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show .section-inner > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal.show .section-inner > *:nth-child(1) { transition-delay: 0.04s; }
+.reveal.show .section-inner > *:nth-child(2) { transition-delay: 0.13s; }
+.reveal.show .section-inner > *:nth-child(3) { transition-delay: 0.22s; }
+.reveal.show .section-inner > *:nth-child(4) { transition-delay: 0.31s; }
+.reveal.show .section-inner > *:nth-child(5) { transition-delay: 0.40s; }
+.reveal.show .section-inner > *:nth-child(6) { transition-delay: 0.49s; }
+
+/* Gerak halus untuk foto dan kartu di dalam section. */
+.reveal .section-inner > .couple-profile {
+    transform: translateY(24px) scale(0.99);
+}
+
+.reveal.show .section-inner > .couple-profile {
+    transform: translateY(0) scale(1);
+}
+
+.reveal .event-card,
+.reveal .gallery-item,
+.reveal .gift-card {
+    opacity: 0;
+    transform: translateY(20px) scale(0.985);
+    transition:
+        opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show .event-card,
+.reveal.show .gallery-item,
+.reveal.show .gift-card {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.reveal.show .event-card:nth-child(2),
+.reveal.show .gallery-item:nth-child(2),
+.reveal.show .gift-card:nth-child(2) {
+    transition-delay: 0.12s;
+}
+
+.reveal.show .gallery-item:nth-child(3),
+.reveal.show .gallery-item:nth-child(4) {
+    transition-delay: 0.20s;
+}
+
+.reveal.show .gallery-item:nth-child(5),
+.reveal.show .gallery-item:nth-child(6) {
+    transition-delay: 0.28s;
+}
+
+.reveal.show .gallery-item:nth-child(7),
+.reveal.show .gallery-item:nth-child(8),
+.reveal.show .gallery-item:nth-child(9) {
+    transition-delay: 0.36s;
+}
+
+/* Nama dan keterangan mempelai ikut muncul dengan jeda kecil. */
+.reveal .couple-info > *,
+.reveal .event-card > *,
+.reveal .gift-card > * {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show .couple-info > *,
+.reveal.show .event-card > *,
+.reveal.show .gift-card > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal.show .couple-info > *:nth-child(2),
+.reveal.show .event-card > *:nth-child(2),
+.reveal.show .gift-card > *:nth-child(2) {
+    transition-delay: 0.08s;
+}
+
+.reveal.show .couple-info > *:nth-child(3),
+.reveal.show .event-card > *:nth-child(3),
+.reveal.show .gift-card > *:nth-child(3) {
+    transition-delay: 0.16s;
+}
+
+.reveal.show .event-card > *:nth-child(4),
+.reveal.show .gift-card > *:nth-child(4) {
+    transition-delay: 0.22s;
+}
+
+/* Form RSVP dan ucapan juga masuk dengan transisi yang lembut. */
+.reveal .rsvp-form .form-group,
+.reveal .wish-form .form-group {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+        opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show .rsvp-form .form-group,
+.reveal.show .wish-form .form-group {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal.show .rsvp-form .form-group:nth-child(2),
+.reveal.show .wish-form .form-group:nth-child(2) { transition-delay: 0.09s; }
+.reveal.show .rsvp-form .form-group:nth-child(3),
+.reveal.show .wish-form .form-group:nth-child(3) { transition-delay: 0.18s; }
+.reveal.show .rsvp-form .form-group:nth-child(4),
+.reveal.show .wish-form .form-group:nth-child(4) { transition-delay: 0.27s; }
+
+/* Foto muncul dengan zoom lembut tanpa mengganggu pergantian foto otomatis. */
+.reveal .opening-image-wrapper,
+.reveal .couple-photo-wrapper,
+.reveal .closing-photo-wrapper,
+.reveal .video-wrapper {
+    overflow: hidden;
+}
+
+.reveal .opening-photo,
+.reveal .closing-photo {
+    transform: scale(1.035);
+    transition: transform 1.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.show .opening-photo,
+.reveal.show .closing-photo {
+    transform: scale(1);
 }
 
 
@@ -240,6 +385,26 @@ a {
         ) both;
 }
 
+.cover-content > * {
+    opacity: 0;
+    animation: coverItemIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cover-content > *:nth-child(1) { animation-delay: 0.08s; }
+.cover-content > *:nth-child(2) { animation-delay: 0.18s; }
+.cover-content > *:nth-child(3) { animation-delay: 0.28s; }
+.cover-content > *:nth-child(4) { animation-delay: 0.38s; }
+.cover-content > *:nth-child(5) { animation-delay: 0.48s; }
+
+.guest-box > * {
+    opacity: 0;
+    animation: coverItemIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.guest-box > *:nth-child(1) { animation-delay: 0.48s; }
+.guest-box > *:nth-child(2) { animation-delay: 0.57s; }
+.guest-box > *:nth-child(3) { animation-delay: 0.66s; }
+
 @keyframes coverContentIn {
 
     from {
@@ -247,6 +412,17 @@ a {
         transform: translateY(25px);
     }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes coverItemIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);
@@ -307,6 +483,16 @@ a {
     font-weight: 400;
     margin-top: 5px;
     font-size: 18px;
+}
+
+.guest-apology {
+    max-width: 280px;
+    margin: 8px auto 0;
+    font-family: var(--sans);
+    font-size: 9px;
+    line-height: 1.5;
+    letter-spacing: 0.15px;
+    color: rgba(255,255,255,0.86);
 }
 
 .btn-open {
@@ -2035,10 +2221,32 @@ a {
 
     .reveal {
         opacity: 1;
-
         transform: none;
-
         transition: none;
+    }
+
+    .reveal .section-inner > *,
+    .reveal .event-card,
+    .reveal .gallery-item,
+    .reveal .gift-card,
+    .reveal .couple-info > *,
+    .reveal .event-card > *,
+    .reveal .gift-card > *,
+    .reveal .rsvp-form .form-group,
+    .reveal .wish-form .form-group,
+    .reveal .opening-photo,
+    .reveal .closing-photo {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .cover-content > *,
+    .guest-box > * {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
     }
 
     * {
